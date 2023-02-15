@@ -2,21 +2,19 @@ package es.ujaen.ssccdd;
 
 import java.util.concurrent.TimeUnit;
 
-public class Session4 {
+public class Session5 {
 
 
     public static void main(String[] args) {
-        FileSearch searcher = new FileSearch("..//..//..","build.xml");
-        Thread thread = new Thread(searcher);
+        FileClock clock = new FileClock();
+        Thread thread = new Thread(clock);
         thread.start();
 
         try{
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(15);
         }catch (InterruptedException e){
-            System.out.println("Hola");
             e.printStackTrace();
         }
-
         thread.interrupt();
     }
 }
