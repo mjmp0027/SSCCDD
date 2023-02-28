@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bbdd7c38-f5c0-4490-b0b3-5d8a0660d7e2" name="Changes" comment="Guión Sesión 4 - Ejemplo 1">
+    <list default="true" id="bbdd7c38-f5c0-4490-b0b3-5d8a0660d7e2" name="Changes" comment="Guión Sesión 4 - Ejemplo 2">
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/FactorialCalculator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/Sesion4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/Sesion4.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
