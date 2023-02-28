@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bbdd7c38-f5c0-4490-b0b3-5d8a0660d7e2" name="Changes" comment="Guión Sesión 2 - Ejemplo 7">
-      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/SafeTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/Session8.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/UnsafeTask.java" afterDir="false" />
+    <list default="true" id="bbdd7c38-f5c0-4490-b0b3-5d8a0660d7e2" name="Changes" comment="Guión Sesión 2 - Ejemplo 8">
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/Job.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/PrintQueue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/Session7.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/Session8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/Session8.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +28,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2LPntoa3CE48lJElTI1QzbBfTIC" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -40,6 +42,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Manuel Jesús/Downloads/grupo5Sesion2_inicio&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -48,8 +51,8 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration name="Session8" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="es.ujaen.ssccdd.Session8" />
+    <configuration name="Sesion4" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="es.ujaen.ssccdd.Sesion4" />
       <module name="Sesion1" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -142,7 +145,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676476797224</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Guión Sesión 2 - Ejemplo 8">
+      <created>1676478464130</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1676478464130</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -164,6 +174,7 @@
     <MESSAGE value="Guión Sesión 2 - Ejemplo 4" />
     <MESSAGE value="Guión Sesión 2 - Ejemplo 5" />
     <MESSAGE value="Guión Sesión 2 - Ejemplo 7" />
-    <option name="LAST_COMMIT_MESSAGE" value="Guión Sesión 2 - Ejemplo 7" />
+    <MESSAGE value="Guión Sesión 2 - Ejemplo 8" />
+    <option name="LAST_COMMIT_MESSAGE" value="Guión Sesión 2 - Ejemplo 8" />
   </component>
 </project>
