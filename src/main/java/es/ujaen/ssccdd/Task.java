@@ -1,28 +1,36 @@
 package es.ujaen.ssccdd;
-import java.util.Date;
+
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-public class Task implements Runnable{
-    private final String nombre;
-    private final Date fechaCreacion = new Date();
+public class Task implements Callable<Result> {
+    private final String nombreTask;
 
-    public Task(String nombre) {
-        this.nombre = nombre;
-        this.fechaCreacion.setTime(System.nanoTime());
+    public Task(String nombreTask) {
+        this.nombreTask = nombreTask;
     }
 
     @Override
-    public void run() {
-        System.out.println(Thread.currentThread().getName() + ": Task " + nombre + ": Created on: " + fechaCreacion);
-        System.out.println(Thread.currentThread().getName() + ": Task " + nombre + ": Started on: " + new Date());
-
-        try{
-            long duration = (long)(Math.random()*10);
-            System.out.println(Thread.currentThread().getName() + ": Task " + nombre + ": Doing a task during " + duration + " seconds\n");
+    public Result call() {
+        System.out.println(this.nombreTask + ": Starting\n");
+        try {
+            long duration = (long) (Math.random() * 10);
+            System.out.println(this.nombreTask + ": Waiting " + duration + " seconds for result\n");
             TimeUnit.SECONDS.sleep(duration);
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(Thread.currentThread().getName() + ": Task " + nombre + ": Finished on: " + new Date());
+
+        int value = 0;
+        for (int i = 0; i < 5; i++) {
+            value += (int) (Math.random() * 100);
+        }
+
+        Result result = new Result();
+        result.setNombreTask(this.nombreTask);
+        result.setResultTask(value);
+        System.out.println(this.nombreTask + ": Ends\n");
+
+        return result;
     }
 }

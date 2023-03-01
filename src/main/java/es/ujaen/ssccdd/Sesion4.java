@@ -5,31 +5,34 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class Sesion4 {
 
-    public static void main(String[] args) {
-        String usuario = "Manuel";
-        String clave = "clave";
-        UserValidator validator1 = new UserValidator("LDAP");
-        UserValidator validator2 = new UserValidator("Database");
-        TaskValidator taskValidator1 = new TaskValidator(validator1, usuario, clave);
-        TaskValidator taskValidator2 = new TaskValidator(validator2, usuario, clave);
-
-        List<TaskValidator> validatorList = new ArrayList<>();
-        validatorList.add(taskValidator1);
-        validatorList.add(taskValidator2);
-
+    public static void main(String[] args) throws RuntimeException {
         ExecutorService executor = Executors.newCachedThreadPool();
-        String result;
+        List<Task> taskList = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            Task task = new Task("Task " + i);
+            taskList.add(task);
+        }
+        List<Future<Result>> futureList = null;
         try {
-            result = executor.invokeAny(validatorList);
-            System.out.println("Main: Result: " + result);
-        } catch (InterruptedException | ExecutionException e) {
+            futureList = executor.invokeAll(taskList);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        executor.shutdown();
-        System.out.println("Main: End of the execution\n");
 
+        executor.shutdown();
+
+        System.out.println("Core: Printing the results\n");
+        assert futureList != null;
+        for (Future<Result> resultFuture : futureList)
+            try {
+                Result result = resultFuture.get();
+                System.out.println(result.getNombreTask() + ": " + result.getResultTask() + "\n");
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
     }
 }
