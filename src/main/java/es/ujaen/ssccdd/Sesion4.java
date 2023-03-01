@@ -1,44 +1,35 @@
 package es.ujaen.ssccdd;
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.concurrent.*;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Sesion4 {
 
     public static void main(String[] args) {
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(2, 2, 0, TimeUnit.MICROSECONDS, new LinkedBlockingQueue<>(10));
-        ArrayList<Future<Integer>> resultList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Random random = new Random();
-            Integer numero = random.nextInt(10);
-            FactorialCalculator calculator = new FactorialCalculator(numero);
-            Future<Integer> result = executor.submit(calculator);
-            resultList.add(result);
-        }
-        do {
-            System.out.println("Main: Number of Completed tasks: " + executor.getCompletedTaskCount());
-            for (int i = 0; i < resultList.size(); i++) {
-                Future<Integer> result = resultList.get(i);
-                System.out.println("Main: Task " + i + ": " + result.isDone());
-            }
-            try{
-                Thread.sleep(50);
-            }catch (InterruptedException e){
-                e.printStackTrace();
-            }
-        } while (executor.getCompletedTaskCount() < resultList.size());
-        System.out.println("Main results: \n");
-        for (int i = 0; i < resultList.size(); i++) {
-            Future<Integer> result = resultList.get(i);
-            Integer numero = null;
-            try{
-                numero = result.get();
-            }catch (InterruptedException | ExecutionException e){
-                e.printStackTrace();
-            }
-            System.out.println("Core: Task "+ i + ": " + numero);
+        String usuario = "Manuel";
+        String clave = "clave";
+        UserValidator validator1 = new UserValidator("LDAP");
+        UserValidator validator2 = new UserValidator("Database");
+        TaskValidator taskValidator1 = new TaskValidator(validator1, usuario, clave);
+        TaskValidator taskValidator2 = new TaskValidator(validator2, usuario, clave);
+
+        List<TaskValidator> validatorList = new ArrayList<>();
+        validatorList.add(taskValidator1);
+        validatorList.add(taskValidator2);
+
+        ExecutorService executor = Executors.newCachedThreadPool();
+        String result;
+        try {
+            result = executor.invokeAny(validatorList);
+            System.out.println("Main: Result: " + result);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
         }
         executor.shutdown();
+        System.out.println("Main: End of the execution\n");
+
     }
 }
