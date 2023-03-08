@@ -8,21 +8,33 @@ public class Sesion5 {
     public static void main(String[] args) throws RuntimeException {
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
 
-        Task task = new Task();
-
-        System.out.println("Main starting at: " + new Date());
-        Future<String> result = executor.submit(task);
+        ResultTask[] resultTask = new ResultTask[5];
+        for (int i = 0; i < resultTask.length; i++) {
+            ExecutableTask executableTask = new ExecutableTask("Task " + i);
+            resultTask[i] = new ResultTask(executableTask);
+            executor.submit(resultTask[i]);
+        }
 
         try {
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        System.out.println("Main cancelling the task\n");
-        result.cancel(true);
-        System.out.println("Main cancelled: " + result.isCancelled() + "\n");
-        System.out.println("Main done: " + result.isDone() + "\n");
+        for (ResultTask task : resultTask) {
+            task.cancel(true);
+        }
+
+        for (ResultTask task : resultTask) {
+            try {
+                if (!task.isCancelled()) {
+                    System.out.println(task.get() + "\n");
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
         executor.shutdown();
 
         System.out.println("Main ends at: " + new Date());
