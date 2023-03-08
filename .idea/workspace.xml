@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bbdd7c38-f5c0-4490-b0b3-5d8a0660d7e2" name="Changes" comment="Guión Sesión 5 - Ejemplo 3">
-      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/ExecutableTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/ResultTask.java" afterDir="false" />
+    <list default="true" id="bbdd7c38-f5c0-4490-b0b3-5d8a0660d7e2" name="Changes" comment="Guión Sesión 5 - Ejemplo 5">
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/ReportGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/ReportProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/ReportRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/Sesion5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/Sesion5.java" afterDir="false" />
     </list>
@@ -194,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678290865238</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Guión Sesión 5 - Ejemplo 4">
+      <created>1678292231157</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1678292231157</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,6 +231,8 @@
     <MESSAGE value="Guión Sesión 5 - Ejemplo 1" />
     <MESSAGE value="Guión Sesión 5 - Ejemplo 2" />
     <MESSAGE value="Guión Sesión 5 - Ejemplo 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="Guión Sesión 5 - Ejemplo 3" />
+    <MESSAGE value="Guión Sesión 5 - Ejemplo 4" />
+    <MESSAGE value="Guión Sesión 5 - Ejemplo 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="Guión Sesión 5 - Ejemplo 5" />
   </component>
 </project>

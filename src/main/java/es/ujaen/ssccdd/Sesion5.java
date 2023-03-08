@@ -6,36 +6,40 @@ import java.util.concurrent.*;
 public class Sesion5 {
 
     public static void main(String[] args) throws RuntimeException {
-        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+        ExecutorService executor = Executors.newCachedThreadPool();
+        CompletionService<String> service = new ExecutorCompletionService<>(executor);
 
-        ResultTask[] resultTask = new ResultTask[5];
-        for (int i = 0; i < resultTask.length; i++) {
-            ExecutableTask executableTask = new ExecutableTask("Task " + i);
-            resultTask[i] = new ResultTask(executableTask);
-            executor.submit(resultTask[i]);
-        }
+        ReportRequest faceRequest = new ReportRequest("Face", service);
+        ReportRequest onlineRequest = new ReportRequest("Online", service);
+        Thread faceThread = new Thread(faceRequest);
+        Thread onlineThread = new Thread(onlineRequest);
+
+        ReportProcessor processor = new ReportProcessor(service);
+        Thread senderThread = new Thread(processor);
+
+        System.out.println("Main starting the Threads");
+        faceThread.start();
+        onlineThread.start();
+        senderThread.start();
 
         try {
-            TimeUnit.SECONDS.sleep(5);
+            System.out.print("Main waiting for the request generators.\n");
+            faceThread.join();
+            onlineThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        for (ResultTask task : resultTask) {
-            task.cancel(true);
-        }
-
-        for (ResultTask task : resultTask) {
-            try {
-                if (!task.isCancelled()) {
-                    System.out.println(task.get() + "\n");
-                }
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
-
+        System.out.println("Main shuting down the executor.\n");
         executor.shutdown();
+
+        try {
+            executor.awaitTermination(1, TimeUnit.DAYS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        processor.setEnd(true);
 
         System.out.println("Main ends at: " + new Date());
     }
