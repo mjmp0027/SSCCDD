@@ -1,44 +1,50 @@
 package es.ujaen.ssccdd;
 
 import java.io.Serial;
-import java.util.List;
-import java.util.concurrent.RecursiveAction;
+import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.TimeUnit;
 
-public class Task extends RecursiveAction {
+public class Task extends RecursiveTask<Integer> {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final List<Product> productList;
+    private final int[] array;
 
-    private final int first;
-    private final int last;
+    private final int start;
+    private final int end;
 
-    private final double increment;
 
-    public Task(List<Product> productList, int first, int last, double increment) {
-        this.productList = productList;
-        this.first = first;
-        this.last = last;
-        this.increment = increment;
+    public Task(int[] array, int start, int end) {
+        this.array = array;
+        this.start = start;
+        this.end = end;
     }
 
     @Override
-    protected void compute() {
-        if (last - first < 10) {
-            updatePrices();
-        } else {
-            int middle = (last - first) / 2;
-            System.out.println("Pending tasks: " + getQueuedTaskCount());
-            Task task1 = new Task(productList, first, middle, increment);
-            Task task2 = new Task(productList, middle + 1, last, increment);
-            invokeAll(task1, task2);
-        }
-    }
+    protected Integer compute() {
+        System.out.printf("Task: Start from %d to %d\n", start, end);
+        if (end - start < 10) {
+            if ((3 > start) && (3 < end)) {
+                throw new RuntimeException("This task throws an Exception: Task from  " + start + " to " + end);
+            }
 
-    private void updatePrices() {
-        for (int i = first; i < last; i++) {
-            productList.get(i).setPrecio(productList.get(i).getPrecio() * (1 + increment));
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            int mid = (end + start) / 2;
+            Task task1 = new Task(array, start, mid);
+            Task task2 = new Task(array, mid, end);
+            invokeAll(task1, task2);
+            System.out.printf("Task: Result form %d to %d: %d\n", start, mid, task1.join());
+            System.out.printf("Task: Result form %d to %d: %d\n", mid, end, task2.join());
         }
+        System.out.printf("Task: End form %d to %d\n", start, end);
+        return 0;
+
     }
 }
