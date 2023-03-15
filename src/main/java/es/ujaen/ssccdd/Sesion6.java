@@ -7,11 +7,15 @@ public class Sesion6 {
 
     public static void main(String[] args) throws RuntimeException {
 
-        int[] array =new int[100];
+        ArrayGenerator generator = new ArrayGenerator();
+        int[] array = generator.generateArray(1000);
 
-        Task task=new Task(array,0,100);
 
-        ForkJoinPool pool=new ForkJoinPool();
+        TaskManager manager = new TaskManager();
+
+        ForkJoinPool pool = new ForkJoinPool();
+
+        SearchNumberTask task = new SearchNumberTask(array, 0, 1000, 5, manager);
 
         pool.execute(task);
 
@@ -23,13 +27,7 @@ public class Sesion6 {
             e.printStackTrace();
         }
 
-
-        if (task.isCompletedAbnormally()) {
-            System.out.print("Main: An exception has ocurred\n");
-            System.out.printf("Main: %s\n",task.getException());
-        }
-
-        System.out.printf("Main: Result: %d",task.join());
+        System.out.printf("Main: Result: %d", task.join());
 
 
     }
