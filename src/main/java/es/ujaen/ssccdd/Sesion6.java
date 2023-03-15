@@ -1,19 +1,23 @@
 package es.ujaen.ssccdd;
 
-import java.util.concurrent.ExecutionException;
+import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
 
 public class Sesion6 {
 
     public static void main(String[] args) throws RuntimeException {
-        DocumentMock mock = new DocumentMock();
-        String[][] document = mock.generateDocument(100, 1000, "the");
-        DocumentTask task = new DocumentTask(document, 0, 100, "the");
 
         ForkJoinPool pool = new ForkJoinPool();
 
-        pool.execute(task);
+        FolderProcessor system=new FolderProcessor("C:\\Windows", "log");
+        FolderProcessor apps=new FolderProcessor("C:\\Program Files","log");
+        FolderProcessor documents=new FolderProcessor("C:\\Documents And Settings","log");
+
+        pool.execute(system);
+        pool.execute(apps);
+        pool.execute(documents);
+
         do {
             System.out.print("******************************************\n");
             System.out.printf("Main: Parallelism: %d\n",pool.getParallelism());
@@ -21,28 +25,27 @@ public class Sesion6 {
             System.out.printf("Main: Task Count: %d\n",pool.getQueuedTaskCount());
             System.out.printf("Main: Steal Count: %d\n",pool.getStealCount());
             System.out.print("******************************************\n");
-
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        } while ((!system.isDone())||(!apps.isDone())||(!documents.isDone()));
 
-        } while (!task.isDone());
 
         pool.shutdown();
 
-        try {
-            pool.awaitTermination(1, TimeUnit.DAYS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        List<String> results;
 
-        try {
-            System.out.printf("Main: The word appears %d in the document",task.get());
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        results=system.join();
+        System.out.printf("System: %d files found.\n",results.size());
+
+        results=apps.join();
+        System.out.printf("Apps: %d files found.\n",results.size());
+
+        results=documents.join();
+        System.out.printf("Documents: %d files found.\n",results.size());
+
     }
 
 }

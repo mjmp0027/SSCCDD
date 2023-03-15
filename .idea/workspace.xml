@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bbdd7c38-f5c0-4490-b0b3-5d8a0660d7e2" name="Changes" comment="Guión Sesión 6 - Ejemplo 1">
-      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/DocumentMock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/DocumentTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/LineTask.java" afterDir="false" />
+    <list default="true" id="bbdd7c38-f5c0-4490-b0b3-5d8a0660d7e2" name="Changes" comment="Guión Sesión 6 - Ejemplo 2">
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/FolderProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/DocumentMock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/DocumentMock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/DocumentTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/DocumentTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/LineTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/LineTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/Sesion6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/ujaen/ssccdd/Sesion6.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -223,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678893957124</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Guión Sesión 6 - Ejemplo 2">
+      <created>1678897637481</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1678897637481</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -256,6 +264,7 @@
     <MESSAGE value="Guión Sesión 5 - Ejemplo 5" />
     <MESSAGE value="Guión Sesión 5 - Ejemplo 6" />
     <MESSAGE value="Guión Sesión 6 - Ejemplo 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Guión Sesión 6 - Ejemplo 1" />
+    <MESSAGE value="Guión Sesión 6 - Ejemplo 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Guión Sesión 6 - Ejemplo 2" />
   </component>
 </project>
