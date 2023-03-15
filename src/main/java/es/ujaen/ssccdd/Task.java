@@ -1,25 +1,44 @@
 package es.ujaen.ssccdd;
 
-import java.util.concurrent.TimeUnit;
+import java.io.Serial;
+import java.util.List;
+import java.util.concurrent.RecursiveAction;
 
-public class Task implements Runnable {
+public class Task extends RecursiveAction {
 
-    private final String name;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-    public Task(String name) {
-        this.name = name;
+    private final List<Product> productList;
+
+    private final int first;
+    private final int last;
+
+    private final double increment;
+
+    public Task(List<Product> productList, int first, int last, double increment) {
+        this.productList = productList;
+        this.first = first;
+        this.last = last;
+        this.increment = increment;
     }
 
     @Override
-    public void run() {
-        System.out.println("Task: " + name + " starting\n");
-        try {
-            long duration = (long) (Math.random() * 10);
-            System.out.println("Task: " + name + " generating a report during " + duration + " seconds\n");
-            TimeUnit.SECONDS.sleep(duration);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    protected void compute() {
+        if (last - first < 10) {
+            updatePrices();
+        } else {
+            int middle = (last - first) / 2;
+            System.out.println("Pending tasks: " + getQueuedTaskCount());
+            Task task1 = new Task(productList, first, middle, increment);
+            Task task2 = new Task(productList, middle + 1, last, increment);
+            invokeAll(task1, task2);
         }
-        System.out.println("Task: " + name + " ending\n");
+    }
+
+    private void updatePrices() {
+        for (int i = first; i < last; i++) {
+            productList.get(i).setPrecio(productList.get(i).getPrecio() * (1 + increment));
+        }
     }
 }
