@@ -1,39 +1,22 @@
 package es.ujaen.ssccdd;
 
-import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.Date;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 
 public class Sesion8 {
 
     public static void main(String[] args) throws Exception {
-        ConcurrentLinkedDeque<String> listElementos = new ConcurrentLinkedDeque<>();
-        Thread[] threads = new Thread[100];
-        for (int i = 0; i < threads.length; i++) {
-            AddTask task = new AddTask(listElementos);
-            threads[i] = new Thread(task);
-            threads[i].start();
+        LinkedBlockingDeque<String> list = new LinkedBlockingDeque<>(3);
+        Client client = new Client(list);
+        Thread thread=new Thread(client);
+        thread.start();
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 3; j++) {
+                String request = list.take();
+                System.out.printf("Main: Request: %s at %s. Size: %d\n", request, new Date(), list.size());
+            }
+            TimeUnit.MILLISECONDS.sleep(300);
         }
-        System.out.println("Main: " + threads.length + " AddTask threads have been launched\n");
-
-        for (Thread thread : threads) {
-            thread.join();
-        }
-
-        System.out.println("Main: Size of the List: " + listElementos.size() + "\n");
-
-        for (int i = 0; i < threads.length; i++) {
-            PoolTask task = new PoolTask(listElementos);
-            threads[i] = new Thread(task);
-            threads[i].start();
-        }
-
-        System.out.println("Main: " + threads.length + " PollTask threads have been launched\n");
-
-        for (Thread thread : threads) {
-            thread.join();
-        }
-
-        System.out.println("Main: Size of the List: " + listElementos.size() + "\n");
-
     }
-
 }
