@@ -1,33 +1,31 @@
 package es.ujaen.ssccdd;
 
-import java.util.concurrent.PriorityBlockingQueue;
+import java.util.Date;
+import java.util.concurrent.DelayQueue;
+import java.util.concurrent.TimeUnit;
 
 public class Sesion8 {
 
-    public static void main(String[] args) {
-        PriorityBlockingQueue<Event> queue = new PriorityBlockingQueue<>();
+    public static void main(String[] args) throws Exception {
+        DelayQueue<Event> queue = new DelayQueue<>();
         Thread[] threads = new Thread[5];
-        for (int i = 0; i < threads.length; i++) {
-            Task task = new Task(i,queue);
-            threads[i]= new Thread(task);
+        for (int i = 0; i< threads.length; i++) {
+            Task task = new Task(i+1, queue);
+            threads[i] = new Thread(task);
             threads[i].start();
+            threads[i].join();
         }
 
-        for (Thread thread : threads) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        System.out.printf("Main: Queue Size: %d\n",queue.size());
-        for (int i=0; i<threads.length*1000; i++){
-            Event event=queue.poll();
-            assert event != null;
-            System.out.printf("Thread %s: Priority %d\n",event.getHilo(),event.getPrioridad());
-        }
-        System.out.printf("Main: Queue Size: %d\n",queue.size());
-        System.out.print("Main: End of the program\n");
+        do {
+            int counter=0;
+            Event event;
+            do {
+                event=queue.poll();
+                if (event!=null) counter++;
+            } while (event!=null);
+            System.out.printf("At %s you have read %d events\n",new Date(),counter);
+            TimeUnit.MILLISECONDS.sleep(500);
+        } while (queue.size()>0);
 
     }
 }

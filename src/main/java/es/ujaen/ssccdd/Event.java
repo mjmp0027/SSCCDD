@@ -1,26 +1,37 @@
 package es.ujaen.ssccdd;
 
-public class Event implements Comparable<Event> {
+import java.util.Date;
+import java.util.concurrent.Delayed;
+import java.util.concurrent.TimeUnit;
 
-    public int getHilo() {
-        return hilo;
+public class Event implements Delayed {
+
+    private final Date startDate;
+
+
+    public Event(Date startDate) {
+        this.startDate = startDate;
+
     }
 
-    private final int hilo;
 
-    public int getPrioridad() {
-        return prioridad;
-    }
+    @Override
+    public long getDelay(TimeUnit unit) {
+        Date now = new Date();
+        long diff = startDate.getTime() - now.getTime();
+        return unit.convert(diff, TimeUnit.MILLISECONDS);
 
-    private final int prioridad;
-
-    public Event(int hilo, int prioridad) {
-        this.hilo = hilo;
-        this.prioridad = prioridad;
     }
 
     @Override
-    public int compareTo(Event e) {
-        return Integer.compare(e.getPrioridad(), this.prioridad);
+    public int compareTo(Delayed o) {
+        long result = this.getDelay(TimeUnit.NANOSECONDS) - o.getDelay(TimeUnit.NANOSECONDS);
+        if (result < 0) {
+            return -1;
+        } else if (result > 0) {
+            return 1;
+        }
+        return 0;
+
     }
 }
