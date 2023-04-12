@@ -1,32 +1,24 @@
 package es.ujaen.ssccdd;
 
-import java.util.Date;
-import java.util.concurrent.DelayQueue;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 public class Task implements Runnable {
 
-    private final int id;
+    private final String id;
 
-    private final DelayQueue<Event> queue;
+    private final ConcurrentSkipListMap<String, Contact> listContactos;
 
-    public Task(int id, DelayQueue<Event> queue) {
+    public Task(ConcurrentSkipListMap<String, Contact> listContactos, String id) {
         this.id = id;
-        this.queue = queue;
+        this.listContactos = listContactos;
     }
 
     @Override
     public void run() {
-        Date now = new Date();
-        Date delay = new Date();
-        delay.setTime(now.getTime() + (id * 1000L));
-
-        System.out.printf("Thread %s: %s\n", id, delay);
-
-        for (int i = 0; i < 100; i++) {
-            Event event = new Event(delay);
-            queue.add(event);
+        for (int i = 0; i < 1000; i++) {
+            Contact contact = new Contact(id, String.valueOf(i + 1000));
+            listContactos.put(id + contact.getTelefeno(), contact);
         }
-
 
     }
 }
