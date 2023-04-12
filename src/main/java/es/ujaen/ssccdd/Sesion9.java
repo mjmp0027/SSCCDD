@@ -1,29 +1,43 @@
 package es.ujaen.ssccdd;
 
+import java.util.concurrent.atomic.AtomicIntegerArray;
+
 public class Sesion9 {
 
     public static void main(String[] args) {
-        Account account = new Account();
-        account.setBalance(1000);
+        final int THREADS = 100;
 
-        Company company = new Company(account);
-        Thread companyThread = new Thread(company);
+        AtomicIntegerArray vector = new AtomicIntegerArray(1000);
 
-        Bank bank = new Bank(account);
-        Thread bankThread = new Thread(bank);
+        Incrementer incrementer = new Incrementer(vector);
+        Decrementer decrementer = new Decrementer(vector);
 
-        System.out.printf("Account : Initial Balance: %d\n", account.getBalance());
+        Thread[] threadIncrementer =new Thread[THREADS];
+        Thread[] threadDecrementer =new Thread[THREADS];
+        for (int i=0; i<THREADS; i++) {
+            threadIncrementer[i]=new Thread(incrementer);
+            threadDecrementer[i]=new Thread(decrementer);
 
-        companyThread.start();
-        bankThread.start();
-
-        try {
-            companyThread.join();
-            bankThread.join();
-            System.out.printf("Account : Final Balance: %d\n", account.getBalance());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            threadIncrementer[i].start();
+            threadDecrementer[i].start();
         }
+
+        for (int i=0; i<THREADS; i++) {
+            try {
+                threadIncrementer[i].join();
+                threadDecrementer[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        for (int i=0; i<vector.length(); i++) {
+            if (vector.get(i)!=0) {
+                System.out.println("Vector["+i+"] : "+vector.get(i));
+            }
+        }
+
+        System.out.println("Main: End of the example");
 
     }
 }
